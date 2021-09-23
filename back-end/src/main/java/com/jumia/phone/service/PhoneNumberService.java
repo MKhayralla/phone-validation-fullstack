@@ -14,13 +14,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class PhoneNumberService {
     @Autowired
-    private PhoneNumberRepo phoneRepository ;
-        @Autowired
-        private ValidationService validate ;
-        @Autowired
-        private PaginationService paginate ;
-        @Value("${paginating.chunk-size}")
-        private Integer chunkSize ;
+    private PhoneNumberRepo phoneRepository ; // jpa repository
+    @Autowired
+    private ValidationService validate ; // validation service
+    @Autowired
+    private PaginationService paginate ; // pagination service
+    @Value("${paginating.chunk-size}")
+    private Integer chunkSize ; // application.properties
+
+    /**
+     * 
+     * @param pageNumber:Integer current page
+     * @param countryCode:String filtering country code
+     * @param stateCode:String filtering state code
+     * @param phone:String filtering phone
+     * @param ext:String filtering phone extention
+     * @param validateData:Boolean whether to validate the data or not
+     * @return paginatedNumbers:PageResponse results ready to be sent back as a response
+     */
     public PageResponse getPhoneNumbers(
         Integer pageNumber,
         String countryCode,
@@ -29,6 +40,7 @@ public class PhoneNumberService {
         String ext,
         Boolean validateData
         ) {
+        // find all numbers
         List<PhoneNumber> result = phoneRepository.findAll() ;
         List<PhoneNumber> filteredResult = validateData ?
         validate.validateAndFilter(
@@ -45,6 +57,7 @@ public class PhoneNumberService {
             phone,
             ext
             ) ;
+        // paginate final result 
         return paginate.paginateResults(filteredResult, pageNumber, chunkSize) ;
     }
 }
