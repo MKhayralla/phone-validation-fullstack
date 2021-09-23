@@ -1,0 +1,472 @@
+{
+	"info": {
+		"_postman_id": "8e6ee0c1-bf12-49ff-a7b1-12d29ee6be75",
+		"name": "phoneNumbersTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "no-validation",
+			"item": [
+				{
+					"name": "all-numbers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK response\", () => {",
+									"    pm.response.to.be.ok",
+									"})",
+									"",
+									"pm.test(\"number of pages\", () => {",
+									"    pm.expect(pm.response.json().numberOfPages).to.equals(5)",
+									"})",
+									"",
+									"pm.test(\"elements found\", () => {",
+									"    pm.expect(pm.response.json().phoneNumbers).have.lengthOf(10)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/numbers/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"numbers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "morocco-filter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK response\", () => {",
+									"    pm.response.to.be.ok",
+									"})",
+									"",
+									"pm.test(\"number of pages\", () => {",
+									"    pm.expect(pm.response.json().numberOfPages).to.equals(1)",
+									"})",
+									"",
+									"pm.test(\"elements found\", () => {",
+									"    pm.expect(pm.response.json().phoneNumbers).have.lengthOf(7)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/numbers/?cc=212",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"numbers",
+								""
+							],
+							"query": [
+								{
+									"key": "cc",
+									"value": "212"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "more-specific-search-criteria",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK response\", () => {",
+									"    pm.response.to.be.ok",
+									"})",
+									"",
+									"pm.test(\"number of pages\", () => {",
+									"    pm.expect(pm.response.json().numberOfPages).equals(1)",
+									"})",
+									"",
+									"pm.test(\"elements found\", () => {",
+									"    pm.expect(pm.response.json().phoneNumbers).have.lengthOf(6)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/numbers/?cc=212&sc=6&ext=3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"numbers",
+								""
+							],
+							"query": [
+								{
+									"key": "cc",
+									"value": "212"
+								},
+								{
+									"key": "sc",
+									"value": "6"
+								},
+								{
+									"key": "ext",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "validated",
+			"item": [
+				{
+					"name": "all-numbers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK response\", () => {",
+									"    pm.response.to.be.ok",
+									"})",
+									"",
+									"pm.test(\"number of pages\", () => {",
+									"    pm.expect(pm.response.json().numberOfPages).to.equals(3)",
+									"})",
+									"",
+									"pm.test(\"elements found\", () => {",
+									"    pm.expect(pm.response.json().phoneNumbers).have.lengthOf(10)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/numbers/?validate=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"numbers",
+								""
+							],
+							"query": [
+								{
+									"key": "validate",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validated-search",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK response\", () => {",
+									"    pm.response.to.be.ok",
+									"})",
+									"",
+									"pm.test(\"number of pages\", () => {",
+									"    pm.expect(pm.response.json().numberOfPages).to.equals(1)",
+									"})",
+									"",
+									"pm.test(\"elements found\", () => {",
+									"    pm.expect(pm.response.json().phoneNumbers).have.lengthOf(3)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/numbers/?cc=212&sc=6&ext=3&validate=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"numbers",
+								""
+							],
+							"query": [
+								{
+									"key": "cc",
+									"value": "212"
+								},
+								{
+									"key": "sc",
+									"value": "6"
+								},
+								{
+									"key": "ext",
+									"value": "3"
+								},
+								{
+									"key": "validate",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pagination",
+			"item": [
+				{
+					"name": "normal-page",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK response\", () => {",
+									"    pm.response.to.be.ok",
+									"})",
+									"",
+									"pm.test(\"number of pages\", () => {",
+									"    pm.expect(pm.response.json().numberOfPages).to.equals(3)",
+									"})",
+									"",
+									"pm.test(\"elements found\", () => {",
+									"    pm.expect(pm.response.json().phoneNumbers).have.lengthOf(10)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/numbers/?page=2&validate=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"numbers",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "validate",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "last-page",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK response\", () => {",
+									"    pm.response.to.be.ok",
+									"})",
+									"",
+									"pm.test(\"number of pages\", () => {",
+									"    pm.expect(pm.response.json().numberOfPages).to.equals(3)",
+									"})",
+									"",
+									"pm.test(\"elements found\", () => {",
+									"    pm.expect(pm.response.json().phoneNumbers).have.lengthOf(7)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/numbers/?page=3&validate=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"numbers",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "3"
+								},
+								{
+									"key": "validate",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "out-of-bounds-page",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK response\", () => {",
+									"    pm.response.to.be.ok",
+									"})",
+									"",
+									"pm.test(\"number of pages\", () => {",
+									"    pm.expect(pm.response.json().numberOfPages).to.equals(3)",
+									"})",
+									"",
+									"pm.test(\"elements found\", () => {",
+									"    pm.expect(pm.response.json().phoneNumbers).have.lengthOf(0)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/numbers/?page=4&validate=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"numbers",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "4"
+								},
+								{
+									"key": "validate",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "get-country-codes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"OK response\", () => {",
+							"    pm.response.to.be.ok",
+							"})",
+							"pm.test(\"has right values\", () => {",
+							"    pm.response.json()['MOR'] == 212",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/codes/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"codes",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080/api"
+		}
+	]
+}
