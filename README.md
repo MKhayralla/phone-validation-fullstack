@@ -13,7 +13,7 @@ it is a demonstration of API development techniques using spring boot framework 
 
 ##### Pre-requisite : jdk11+
 
-Assuming you have maven and spring-boot plugin installed in your machine, in the `phone` folder, execute:
+Assuming you have maven and spring-boot plugin installed in your machine, in the `back-end` folder, execute:
 
 ```bash
 mvn spring-boot:run
