@@ -34,15 +34,15 @@ function App() {
     const newUrl = baseUrl
       .concat('/numbers/?')
       .concat((cc.length > 0) ? `cc=${cc}` : '')
-      .concat((sc.length > 0) ? `&&sc=${sc}` : '')
-      .concat((phone.length > 0) ? `&&phone=${phone}` : '')
-      .concat((ext.length > 0) ? `&&ext=${ext}` : '')
-      .concat((validate) ? '&&validate=1' : '');
+      .concat((sc.length > 0) ? `&sc=${sc}` : '')
+      .concat((phone.length > 0) ? `&phone=${phone}` : '')
+      .concat((ext.length > 0) ? `&ext=${ext}` : '')
+      .concat((validate) ? '&validate=1' : '');
     setUrl(newUrl);
   }
   const onPageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-    fetchData(requestUrl + `&&page=${pageNumber}`);
+    fetchData(requestUrl + `&page=${pageNumber}`);
   }
   return (
     <Container className='App'>
